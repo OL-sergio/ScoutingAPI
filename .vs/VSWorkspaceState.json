@@ -6,6 +6,6 @@
     "\\src\\controllers",
     "\\src\\routes"
   ],
-  "SelectedNode": "\\src\\controllers\\activities.controllers.js",
+  "SelectedNode": "\\src\\routes\\scout.routes.js",
   "PreviewInSolutionExplorer": false
 }

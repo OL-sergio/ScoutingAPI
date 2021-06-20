@@ -34,11 +34,11 @@ exports.createActivities = async (req, res) => {
     try {
         const request = pool1.request();
         var scriptSQL = `insert into ACTIVITIES (idACTIVITIES, NAME, START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE)
-                                values (`+ idACTIVITIES + `, '` + NAME + `', convert(date,'` + START_DATE + `'), '` + ADDRESS + `', '` + CITY + `', '` + COUNTRY + `','` + EMAIL + `','` + PHONE + `' )`;
+                                values ('`+ idACTIVITIES + `', '` + NAME + `', convert(date,'` + START_DATE + `'), '` + ADDRESS + `', '` + CITY + `', '` + COUNTRY + `','` + EMAIL + `','` + PHONE + `' )`;
         const result = await request.query(scriptSQL);
         console.log(scriptSQL);
         console.dir(result.recordset);
-        res.status(201).send({ mensagem: "Activitie criada" });
+        res.status(201).send({ mensagem: "Actividade criada" });
     } catch (err) {
         console.error('SQL error', err);
         res.status(500).send({ mensagem: "Erro na conexão BD" })
