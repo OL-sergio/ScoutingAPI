@@ -22,7 +22,7 @@ exports.listAllUsers = async (req, res) => {
     await pool1Connect; // Garante que a ligação existe
     try {
         const request = pool1.request();
-        var scriptSQL = `select USERNAME,PASSWORD,EMAIL,FORMAT(BIRTHDATE,'yyyy/MM/dd') BIRTHDATE, NATIONALITY from USERS`;
+        var scriptSQL = `select USERNAME,PASSWORD,EMAIL,FORMAT(BIRTHDATE,'yyyy/MM/dd') BIRTHDATE, NATIONALITY, FORMAT(CREATION_DATE,'yyyy/MM/dd') CREATION_DATE from USERS`;
         const result = await request.query(scriptSQL);
         console.log(scriptSQL);
         console.dir(result.recordset);
@@ -35,13 +35,13 @@ exports.listAllUsers = async (req, res) => {
 
 
 exports.register = async (req, res, next) => {
-    const { USERNAME, PASSWORD, EMAIL, BIRTHDATE, NATIONALITY} = req.body;
+    const { USERNAME, PASSWORD, EMAIL, BIRTHDATE, NATIONALITY, CREATION_DATE} = req.body;
     PASSWORDHS = await bcrypt.hash(PASSWORD, 5);
     await pool1Connect;
     try {
         const request = pool1.request();
-        var scriptSQL = `insert into USERS(USERNAME, PASSWORD, EMAIL, BIRTHDATE, NATIONALITY) 
-                                   values ('` + USERNAME + `','` + PASSWORDHS + `','` + EMAIL + `',convert(date,'` + BIRTHDATE + `'),'` + NATIONALITY + `')`;
+        var scriptSQL = `insert into USERS(USERNAME, PASSWORD, EMAIL, BIRTHDATE, NATIONALITY, CREATION_DATE)
+                                   values ('` + USERNAME + `','` + PASSWORDHS + `','` + EMAIL + `',convert(date,'` + BIRTHDATE + `'),'` + NATIONALITY + `',convert(date,'` + CREATION_DATE + `'))`;
         const result = await request.query(scriptSQL);
         console.log(scriptSQL);
         res.status(201).send({ mensagem: "Utilizador registado com sucesso!" });

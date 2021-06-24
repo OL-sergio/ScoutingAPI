@@ -16,7 +16,7 @@ exports.listAllActivities = async (req, res) => {
     await pool1Connect; // Garante que a ligação existe
     try {
         const request = pool1.request();
-        var scriptSQL = `select idACTIVITIES, NAME, FORMAT(START_DATE,'yyyy/MM/dd') START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE  from ACTIVITIES`;
+        var scriptSQL = `select idACTIVITIES ,NAME, FORMAT(START_DATE,'yyyy/MM/dd') START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE, FORMAT(CREATION_DATE,'yyyy/MM/dd') CREATION_DATE from ACTIVITIES`;
         const result = await request.query(scriptSQL);
         console.log(scriptSQL);
         console.dir(result.recordset);
@@ -29,12 +29,12 @@ exports.listAllActivities = async (req, res) => {
 
 
 exports.createActivities = async (req, res) => {
-    const { idACTIVITIES, NAME, START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE} = req.body;
+    const {  NAME, START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE, CREATION_DATE} = req.body;
     await pool1Connect; // Garante que a ligação existe
     try {
         const request = pool1.request();
-        var scriptSQL = `insert into ACTIVITIES (idACTIVITIES, NAME, START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE)
-                                values ('`+ idACTIVITIES + `', '` + NAME + `', convert(date,'` + START_DATE + `'), '` + ADDRESS + `', '` + CITY + `', '` + COUNTRY + `','` + EMAIL + `','` + PHONE + `' )`;
+        var scriptSQL = `insert into ACTIVITIES ( NAME, START_DATE, ADDRESS, CITY, COUNTRY, EMAIL, PHONE, CREATION_DATE)
+                                values ( '` + NAME + `', convert(date,'` + START_DATE + `'), '` + ADDRESS + `', '` + CITY + `', '` + COUNTRY + `','` + EMAIL + `','` + PHONE + `', convert(date,'` + CREATION_DATE + `') )`;
         const result = await request.query(scriptSQL);
         console.log(scriptSQL);
         console.dir(result.recordset);
