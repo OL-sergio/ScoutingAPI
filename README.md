@@ -48,7 +48,7 @@ ScoutingAPI is a RESTful API designed to manage a variety of resources for scout
 ### Prerequisites
 - Node.js
 - Microsoft SQL Server
-- npm
+- Express.js
 
 ### Installation Steps
 1. Clone the repository:
